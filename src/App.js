@@ -2,7 +2,6 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Main from "./Main";
 import "./App.css";
 import Card from "./Card";
-import Comp404 from "./Comp-404";
 
 function App() {
   return (
