@@ -1,22 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef, useState } from "react";
+import "./App.css";
+import { MyBtn } from "./UI/btn/MyBtn";
+import { MyInput } from "./UI/input/MyInput";
 
 function App() {
+  const [title, setTitle] = useState("testTitle");
+  const bodyInputRef = useRef()
+  const addNewPost = (e) => {
+    e.preventDefault();
+    console.log(bodyInputRef.current);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form action="">
+          {/* управляемый компонент */}
+          <MyInput
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="название поста"
+          />
+          {/* неуправляемый компонент */}
+          <MyInput ref={bodyInputRef} placeholder="название поста" />
+          <MyBtn onClick={addNewPost}>Push me</MyBtn>
+        </form>
       </header>
     </div>
   );
