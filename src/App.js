@@ -5,10 +5,22 @@ import { MyInput } from "./UI/input/MyInput";
 
 function App() {
   const [title, setTitle] = useState("");
-  const bodyInputRef = useRef(); // получаем ссылку для 
+  const [body, setBody] = useState("body");
+  const [posts, setPosts] = useState([
+    { id: 1, title: "JS 1", body: "description" },
+    { id: 2, title: "JS 2", body: "description" },
+    { id: 3, title: "JS 3", body: "description" },
+  ]);
+
+  const bodyInputRef = useRef(); // получаем ссылку для
   const addNewPost = (e) => {
     e.preventDefault();
-    console.log(bodyInputRef.current.value);
+    const newPost = {
+      id: Date.now(),
+      title,
+      body,
+    };
+    setPosts([...posts, newPost])
   };
 
   return (
@@ -22,9 +34,23 @@ function App() {
             placeholder="название поста"
           />
           {/* неуправляемый компонент */}
-          <MyInput ref={bodyInputRef} placeholder="название поста" />
+          <MyInput
+            value={body}
+            onChange={setBody}
+            ref={bodyInputRef}
+            placeholder="название поста"
+          />
           <MyBtn onClick={addNewPost}>Push me</MyBtn>
         </form>
+        {posts.map(it => {
+          return (
+            <div>
+              <p>{it.id}</p>
+              <p>{it.title}</p>
+              <p>{it.body}</p>
+            </div>
+          )
+        })}
       </header>
     </div>
   );
