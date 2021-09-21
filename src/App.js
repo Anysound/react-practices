@@ -4,11 +4,11 @@ import { MyBtn } from "./UI/btn/MyBtn";
 import { MyInput } from "./UI/input/MyInput";
 
 function App() {
-  const [title, setTitle] = useState("testTitle");
-  const bodyInputRef = useRef()
+  const [title, setTitle] = useState("");
+  const bodyInputRef = useRef(); // получаем ссылку для 
   const addNewPost = (e) => {
     e.preventDefault();
-    console.log(bodyInputRef.current);
+    console.log(bodyInputRef.current.value);
   };
 
   return (
