@@ -5,7 +5,7 @@ import { MyInput } from "./UI/input/MyInput";
 
 function App() {
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("body");
+  const [body, setBody] = useState("");
   const [posts, setPosts] = useState([
     { id: 1, title: "JS 1", body: "description" },
     { id: 2, title: "JS 2", body: "description" },
@@ -21,6 +21,8 @@ function App() {
       body,
     };
     setPosts([...posts, newPost])
+    setTitle('');
+    setBody('')
   };
 
   return (
@@ -36,7 +38,7 @@ function App() {
           {/* неуправляемый компонент */}
           <MyInput
             value={body}
-            onChange={setBody}
+            onChange={e => setBody(e.target.value)}
             ref={bodyInputRef}
             placeholder="название поста"
           />
