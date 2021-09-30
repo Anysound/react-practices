@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import "./App.css";
+import { PostForm } from "./PostForm";
+import { PostList } from "./PostList";
 import { MyBtn } from "./UI/btn/MyBtn";
 import { MyInput } from "./UI/input/MyInput";
 
@@ -12,47 +14,31 @@ function App() {
     { id: 3, title: "JS 3", body: "description" },
   ]);
 
-  const bodyInputRef = useRef(); // получаем ссылку для
-  const addNewPost = (e) => {
-    e.preventDefault();
-    const newPost = {
-      id: Date.now(),
-      title,
-      body,
-    };
+  const bodyInputRef = useRef(); // получаем ссылку для элемента
+  const createPost = (newPost) => {
     setPosts([...posts, newPost])
-    setTitle('');
-    setBody('')
-  };
+  }
+
+  const deletePost = (post) => {
+    setPosts(posts.filter(it => it.id !== post.id))
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <form action="">
-          {/* управляемый компонент */}
-          <MyInput
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="название поста"
-          />
-          {/* неуправляемый компонент */}
-          <MyInput
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            ref={bodyInputRef}
-            placeholder="название поста"
-          />
-          <MyBtn onClick={addNewPost}>Push me</MyBtn>
-        </form>
-        {posts.map(it => {
+        <PostForm create={createPost}/>
+        <PostList posts={posts} remove={deletePost} />
+        {/* {posts.map(it => {
           return (
             <div>
               <p>{it.id}</p>
               <p>{it.title}</p>
               <p>{it.body}</p>
+              <MyBtn onClick={(evt) => deletePost(evt.target.value)}>delete</MyBtn>
             </div>
           )
-        })}
+        })} */}
+
       </header>
     </div>
   );
