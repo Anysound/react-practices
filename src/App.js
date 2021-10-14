@@ -28,6 +28,13 @@ function App() {
       <header className="App-header">
         <PostForm create={createPost}/>
         <PostList posts={posts} remove={deletePost} />
+        <div>
+          <select name="" id="">
+            <option value="value1">По названию</option>
+            <option value="value2">По описанию</option>
+          </select>
+        </div>
+        {posts.length ? null : <p>Посты не найдены</p>}
         {/* {posts.map(it => {
           return (
             <div>
