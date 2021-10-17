@@ -1,0 +1,13 @@
+import React from 'react'
+
+export const Select = ({options, defaultValue, value, onChange}) => {
+  
+  return (
+    <select name="" value={value} onChange={evt => onChange(evt.target.value)}>
+      <option value="" disabled>{defaultValue}</option>
+      {options.map(option =>
+        <option key={option.value} value={option.value}>{option.name}</option>
+      )}
+    </select>
+  )
+}

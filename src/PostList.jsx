@@ -3,6 +3,12 @@ import { PostItem } from './PostItem';
 
 export const PostList = ({posts, title, remove}) => {
   
+  if (!posts.length) {
+    return (
+      <p>Посты не найдены!</p>
+    )
+  }
+
   return (
     <div>
       <h1>{title}</h1>    
