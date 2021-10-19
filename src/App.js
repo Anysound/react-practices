@@ -5,6 +5,7 @@ import { PostForm } from "./PostForm";
 import { PostList } from "./PostList";
 import { MyBtn } from "./UI/btn/MyBtn";
 import { MyInput } from "./UI/input/MyInput";
+import { Modal } from "./UI/modal/Modal";
 import { Select } from "./UI/select/Select";
 
 function App() {
@@ -15,17 +16,21 @@ function App() {
     { id: 2, title: "x2", body: "tr 2" },
     { id: 3, title: "ab3", body: "ab 3" },
   ]);
-  const [filter, setFilter] = useState({sort: '', search: ''});
+  const [filter, setFilter] = useState({ sort: "", search: "" });
+  const [modal, setModal] = useState(false);
 
   const bodyInputRef = useRef(); // получаем ссылку для элемента
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
+    setModal(false);
   };
 
   function getSortedPosts() {
-    console.log('getSortedPosts');
+    console.log("getSortedPosts");
     if (filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
+      return [...posts].sort((a, b) =>
+        a[filter.sort].localeCompare(b[filter.sort])
+      );
     }
     return posts;
   }
@@ -37,14 +42,18 @@ function App() {
   const sortedPosts = useMemo(getSortedPosts, [posts, filter.sort]);
 
   const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(it => it.body.toLowerCase().includes(filter.search))
-  },[filter.search, sortedPosts])
-
+    return sortedPosts.filter((it) =>
+      it.body.toLowerCase().includes(filter.search)
+    );
+  }, [filter.search, sortedPosts]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <PostForm create={createPost} />
+        <MyBtn onClick={() => setModal(true)}>create User</MyBtn>
+        <Modal visible={modal} setVisible={setModal}>
+          <PostForm create={createPost} />
+        </Modal>
         <PostList posts={sortedAndSearchedPosts} remove={deletePost} />
         <PostFilter filter={filter} setFilter={setFilter} />
       </header>

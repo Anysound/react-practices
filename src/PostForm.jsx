@@ -12,13 +12,13 @@ export const PostForm = ({create}) => {
       ...post,
       id: Date.now(),
     };
-    create(newPost)
-    // setPosts([...posts, newPost])
+    create(newPost);
+    
   };
 
   return (
     <div>
-      <form action="">
+      <form action="" style={{display: 'flex', flexDirection: 'column'}}>
           {/* управляемый компонент */}
           <MyInput
             onChange={e => setPost({...post, title: e.target.value})}
