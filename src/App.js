@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import "./App.css";
+import { usePosts } from "./hooks/usePosts";
 import { PostFilter } from "./PostFilter";
 import { PostForm } from "./PostForm";
 import { PostList } from "./PostList";
@@ -16,7 +17,7 @@ function App() {
     { id: 2, title: "x2", body: "tr 2" },
     { id: 3, title: "ab3", body: "ab 3" },
   ]);
-  const [filter, setFilter] = useState({ sort: "", search: "" });
+  const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
 
   const bodyInputRef = useRef(); // получаем ссылку для элемента
@@ -26,26 +27,15 @@ function App() {
   };
 
   function getSortedPosts() {
-    console.log("getSortedPosts");
-    if (filter.sort) {
-      return [...posts].sort((a, b) =>
-        a[filter.sort].localeCompare(b[filter.sort])
-      );
-    }
-    return posts;
+
   }
 
   const deletePost = (post) => {
     setPosts(posts.filter((it) => it.id !== post.id));
   };
 
-  const sortedPosts = useMemo(getSortedPosts, [posts, filter.sort]);
 
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((it) =>
-      it.body.toLowerCase().includes(filter.search)
-    );
-  }, [filter.search, sortedPosts]);
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
   return (
     <div className="App">
