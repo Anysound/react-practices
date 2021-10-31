@@ -22,6 +22,22 @@
 .post-exit {
   opacity: 1;
 }
+
+.pagination-wrapper {
+  margin-top: 30px;
+  display: flex;
+}
+
+.page {
+  border: 1px solid darkolivegreen;
+}
+
+.page-current {
+  font-weight: bold;
+  border: 2px solid orange;
+  color: #282c34;
+}
+
 .post-exit-active {
   transform: translateX(-350px);
   transition: all 500ms ease-in;
@@ -42,6 +58,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 0 40px;
 }
 
 .App-link {
