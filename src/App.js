@@ -1,22 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAllDogs } from './selectors';
 
 function App() {
+  const dispatch = useDispatch();
+
+  const dogs = useSelector(selectAllDogs);
+  console.log(dogs);
+
+  const addDog = (dog) => {
+    dispatch({type: 'add_dog', payload: dog})
+  }
+  const get_dogs = {type: 'get_dogs', payload: 'get_dogs'}
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {/* <button onClick={() => {
+          addDog(prompt('enter dog'))
+          }}>get dogs: {animals.dogs
+        }</button>
+        <button onClick={() => dispatch('get_cats')}>
+          get cats: {animals.cats}
+        </button> */}
       </header>
     </div>
   );
