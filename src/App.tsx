@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
-import Card, { CardVariant } from "./components/Card";
-import UserList from "./components/UserList";
-import {IUser} from './types/types';
-import axios from "axios";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { MainPage } from "./components/MainPage";
+import { Nav } from "./components/Nav";
+import { TasksPage } from "./components/TasksPage";
+import { UserPage } from "./components/UserPage";
 
 const App = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-
-  console.log(users);
-
-  async function fetchUsers() {
-    try {
-      const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
-      setUsers(response.data)
-    } catch(e) {
-      alert(e)
-    }
-  }
-
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
   return (
-    <div>
-      <Card
+    <BrowserRouter>
+      <div>
+        <Nav />
+        <Routes>
+          <Route path={"/"} element={<MainPage />} />
+          <Route path={"/users"} element={<UserPage />} />
+          <Route path={"/tasks"} element={<TasksPage />} />
+        </Routes>
+
+        {/* <Card
         width="100px"
         height="100px"
         variant={CardVariant.outlined}
@@ -32,8 +23,10 @@ const App = () => {
       >
         <button>click me</button>
       </Card>
-      <UserList users={users} />
-    </div>
+      <TasksPage/>
+      <UserPage/> */}
+      </div>
+    </BrowserRouter>
   );
 };
 

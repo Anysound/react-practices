@@ -10,3 +10,10 @@ export interface IUser {
   email: string;
   address: IAddreess;
 }
+
+export interface ITask {
+  id: number;
+  title: string;
+  completed: boolean;
+  
+}
